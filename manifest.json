@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Inkwell — Stationery for the Digital Age",
+  "version": "2.0",
+  "description": "Premium, minimalist stationery for your browser. Capture ideas with elegant typography, tactile aesthetics, and seamless auto-save.",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon.png",
+      "32": "icons/icon.png",
+      "48": "icons/icon.png",
+      "128": "icons/icon.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon.png",
+    "32": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  }
+}

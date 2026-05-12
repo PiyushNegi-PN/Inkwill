@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inkwell | Digital Heirloom Stationery</title>
+  <link rel="stylesheet" href="popup.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Sidebar Menu">
+      <div class="sidebar-header">
+        <div class="brand">
+          <i data-lucide="pen-tool" class="brand-icon" aria-hidden="true"></i>
+          <div class="brand-text">
+            <h1>Inkwell</h1>
+            <p class="tagline">Stationery for the Digital Age</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button id="new-note-btn" class="nav-item active" title="New Note (Ctrl+N)" aria-label="New Note">
+          <i data-lucide="plus" aria-hidden="true"></i>
+          <span>New Note</span>
+        </button>
+        <button id="list-btn" class="nav-item" title="Archive (Ctrl+L)" aria-label="View Archive">
+          <i data-lucide="archive" aria-hidden="true"></i>
+          <span>Archive</span>
+        </button>
+        <button id="settings-btn" class="nav-item" title="Preferences (Ctrl+P)" aria-label="Preferences">
+          <i data-lucide="settings" aria-hidden="true"></i>
+          <span>Preferences</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="write-btn" class="primary-btn" title="Focus Editor" aria-label="Start Writing">WRITE</button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-content" role="main">
+      <div class="content-bg-image" aria-hidden="true"></div>
+      
+      <header class="top-header">
+        <button id="toggle-sidebar" class="icon-btn" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+        <div class="top-logo">
+          <span>Inkwell</span>
+          <i data-lucide="check-square" aria-hidden="true"></i>
+        </div>
+      </header>
+
+      <div class="editor-container">
+        <!-- Paper Background Details -->
+        <div class="binder-rings" aria-hidden="true">
+          <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        </div>
+        
+        <div class="paper-sheet">
+          <div class="paper-clip" aria-hidden="true">
+            <i data-lucide="paperclip"></i>
+          </div>
+          <div id="note-editor" 
+               class="editor"
+               contenteditable="true" 
+               spellcheck="false" 
+               role="textbox" 
+               aria-multiline="true" 
+               aria-label="Note Content Area"
+               placeholder="Write your thoughts here..."></div>
+        </div>
+
+        <!-- Overlays (Contextual) -->
+        <div id="archive-overlay" class="overlay hidden" role="dialog" aria-labelledby="archive-title" aria-modal="true">
+          <div class="overlay-header">
+            <h2 id="archive-title">Archive</h2>
+            <div class="overlay-actions">
+              <button id="clear-archive-btn" class="text-btn danger" title="Wipe Archive" aria-label="Clear All Archive">Clear All</button>
+              <button class="close-overlay icon-btn" aria-label="Close Archive"><i data-lucide="x"></i></button>
+            </div>
+          </div>
+          <div class="search-container">
+            <i data-lucide="search" class="search-icon" aria-hidden="true"></i>
+            <input type="text" id="archive-search" placeholder="Search notes..." aria-label="Search Notes">
+          </div>
+          <div id="notes-list" class="notes-list">
+            <!-- Dynamic notes -->
+          </div>
+        </div>
+
+        <div id="settings-overlay" class="overlay hidden" role="dialog" aria-labelledby="settings-title" aria-modal="true">
+          <div class="overlay-header">
+            <h2 id="settings-title">Preferences</h2>
+            <button class="close-overlay icon-btn" aria-label="Close Preferences"><i data-lucide="x"></i></button>
+          </div>
+          <div class="settings-content">
+            <section class="setting-group">
+              <label>Paper Style</label>
+              <div class="option-grid" id="paper-style-options" role="radiogroup" aria-label="Paper Style Selection">
+                <button class="option-tile active" data-value="ruled" role="radio" aria-checked="true">
+                  <div class="preview-box ruled"></div><span>Ruled</span>
+                </button>
+                <button class="option-tile" data-value="grid" role="radio" aria-checked="false">
+                  <div class="preview-box grid"></div><span>Grid</span>
+                </button>
+                <button class="option-tile" data-value="plain" role="radio" aria-checked="false">
+                  <div class="preview-box plain"></div><span>Plain</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="setting-group">
+              <label>Handwriting Font</label>
+              <div class="option-grid" id="font-options" role="radiogroup" aria-label="Font Selection">
+                <button class="option-tile" data-value="caveat" style="font-family: 'Caveat', cursive;" role="radio" aria-checked="false">Caveat</button>
+                <button class="option-tile active" data-value="playfair" style="font-family: 'Playfair Display', serif;" role="radio" aria-checked="true">Playfair</button>
+              </div>
+            </section>
+
+            <section class="setting-group">
+              <label>Font Size</label>
+              <div class="option-grid" id="font-size-options" role="radiogroup" aria-label="Font Size Selection">
+                <button class="option-tile" data-value="1.25rem" role="radio" aria-checked="false">Small</button>
+                <button class="option-tile active" data-value="1.75rem" role="radio" aria-checked="true">Medium</button>
+                <button class="option-tile" data-value="2.25rem" role="radio" aria-checked="false">Large</button>
+              </div>
+            </section>
+
+            <section class="setting-group">
+              <label>Ink Color</label>
+              <div class="option-grid" id="ink-color-options" role="radiogroup" aria-label="Ink Color Selection">
+                <button class="option-tile active" data-value="#1a1b1e" role="radio" aria-checked="true">
+                  <div class="color-swatch" style="background: #1a1b1e;"></div><span>Black</span>
+                </button>
+                <button class="option-tile" data-value="#1e3a5f" role="radio" aria-checked="false">
+                  <div class="color-swatch" style="background: #1e3a5f;"></div><span>Blue</span>
+                </button>
+                <button class="option-tile" data-value="#8b4513" role="radio" aria-checked="false">
+                  <div class="color-swatch" style="background: #8b4513;"></div><span>Sienna</span>
+                </button>
+                <button class="option-tile" data-value="#1b4d3e" role="radio" aria-checked="false">
+                  <div class="color-swatch" style="background: #1b4d3e;"></div><span>Green</span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <footer class="bottom-toolbar">
+        <div class="toolbar-left">
+          <button id="bold-btn" class="format-btn" title="Bold" aria-label="Format Bold">B</button>
+          <button id="italic-btn" class="format-btn" title="Italic" aria-label="Format Italic">I</button>
+          <button id="check-btn" class="format-btn" title="Add Checklist" aria-label="Insert Checklist"><i data-lucide="list-checks"></i></button>
+        </div>
+        <div class="toolbar-right">
+          <div class="save-indicator" aria-live="polite">
+            <i data-lucide="check" class="check-icon" aria-hidden="true"></i>
+            <span id="save-status">ALL CHANGES SAVED</span>
+          </div>
+          <div class="divider" aria-hidden="true"></div>
+          <button id="delete-btn" class="icon-btn danger" title="Delete Note" aria-label="Delete Note"><i data-lucide="trash-2"></i></button>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
