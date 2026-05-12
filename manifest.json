@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Inkwell — Stationery for the Digital Age",
   "version": "2.0",
-  "description": "Premium, minimalist stationery for your browser. Capture ideas with elegant typography, tactile aesthetics, and seamless auto-save.",
+  "description": "Luxurious, minimalist notepad that feels like high-end physical stationery. Capture ideas with elegant typography and tactile paper.",
   "permissions": ["storage"],
   "action": {
     "default_popup": "popup.html",
